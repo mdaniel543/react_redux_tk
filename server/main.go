@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/mdaniel543/so1_practica1_201709450/server/controllers"
 )
@@ -17,5 +19,6 @@ func main() {
 	router.HandleFunc("/vehicle/{id}", controllers.GetVehicle).Methods("GET")
 	router.HandleFunc("/vehicle/{id}", controllers.UpdateVehicle).Methods("PUT")
 	router.HandleFunc("/vehicle/{id}", controllers.DeleteVehicle).Methods("DELETE")
-	http.ListenAndServe(":8080", router)
+
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS()(router)))
 }

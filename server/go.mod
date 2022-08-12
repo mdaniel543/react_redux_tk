@@ -3,7 +3,9 @@ module github.com/mdaniel543/so1_practica1_201709450/server
 go 1.18
 
 require (
+	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect

@@ -56,7 +56,7 @@ function OffcanvasExample() {
                 />
                 <Button variant="outline-success">Search</Button>
               </Form>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav style={{marginTop: '25px'}} className="justify-content-end flex-grow-1 pe-3">
                 <NavDropdown
                   title="Marca"
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -66,8 +66,7 @@ function OffcanvasExample() {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-              <></>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav style={{marginTop: '20px'}} className="justify-content-end flex-grow-1 pe-3">
                 <NavDropdown
                   title="Modelo"
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -77,7 +76,7 @@ function OffcanvasExample() {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav style={{marginTop: '20px'}} className="justify-content-end flex-grow-1 pe-3">
                 <NavDropdown
                   title="Color"
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
