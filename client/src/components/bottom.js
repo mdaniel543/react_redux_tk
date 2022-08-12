@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -10,6 +10,8 @@ import { addVehicle } from "../features/vehicles/vehicleSlice";
 
 function CreateVehicle({ name, ...props }) {
   const [vehicle, setVehicle] = useState({});
+  const [confirm, setConfirm] = useState(false);
+
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
@@ -20,16 +22,24 @@ function CreateVehicle({ name, ...props }) {
     setVehicle({ ...vehicle, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    if (confirm) {
+      console.log(vehicle);
+      dispatch(addVehicle(vehicle));
+      setConfirm(false);
+      setVehicle({});
+      setShow(false);
+    }
+  }, [confirm]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(vehicle);
-    dispatch(addVehicle(vehicle));
-    setVehicle({});
-    setShow(false);
+    setVehicle({ ...vehicle, Modelo: parseInt(vehicle.Modelo) });
+    setConfirm(true);
   };
 
   return (
-    <div style={{ marginLeft: "50px", marginTop: "25px" }}>
+    <div style={{ marginLeft: "70px", marginTop: "20px" }}>
       <Button variant="primary" onClick={handleShow} className="me-2">
         {name}
       </Button>

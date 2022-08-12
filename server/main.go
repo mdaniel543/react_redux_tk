@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
-	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/mdaniel543/so1_practica1_201709450/server/controllers"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -20,5 +19,12 @@ func main() {
 	router.HandleFunc("/vehicle/{id}", controllers.UpdateVehicle).Methods("PUT")
 	router.HandleFunc("/vehicle/{id}", controllers.DeleteVehicle).Methods("DELETE")
 
-	log.Fatal(http.ListenAndServe(":8080", handlers.CORS()(router)))
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedMethods:   []string{http.MethodGet, http.MethodPost, http.MethodDelete, http.MethodPut},
+		AllowCredentials: true,
+	})
+
+	handler := c.Handler(router)
+	http.ListenAndServe(":8080", handler)
 }
