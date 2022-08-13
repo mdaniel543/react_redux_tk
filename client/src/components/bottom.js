@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import {useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Col from "react-bootstrap/Col";
@@ -9,8 +9,8 @@ import Row from "react-bootstrap/Row";
 import { addVehicle } from "../features/vehicles/vehicleSlice";
 
 function CreateVehicle({ name, ...props }) {
+  const {list: vehicles} = useSelector((state) => state.vehicles);
   const [vehicle, setVehicle] = useState({});
-  const [confirm, setConfirm] = useState(false);
 
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -19,23 +19,18 @@ function CreateVehicle({ name, ...props }) {
   const handleShow = () => setShow(true);
 
   const handleChange = (e) => {
-    setVehicle({ ...vehicle, [e.target.name]: e.target.value });
+    setVehicle({
+      ...vehicle,
+      [e.target.name]:
+        e.target.name === "Modelo" ? parseInt(e.target.value) : e.target.value,
+    });
   };
-
-  useEffect(() => {
-    if (confirm) {
-      console.log(vehicle);
-      dispatch(addVehicle(vehicle));
-      setConfirm(false);
-      setVehicle({});
-      setShow(false);
-    }
-  }, [confirm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setVehicle({ ...vehicle, Modelo: parseInt(vehicle.Modelo) });
-    setConfirm(true);
+    dispatch(addVehicle(vehicles, vehicle));
+    setVehicle({});
+    setShow(false);
   };
 
   return (

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const BACK_URL = "http://localhost:8080";
 
@@ -55,13 +56,49 @@ export const fetchVehicles = () => async (dispatch) => {
     });
 };
 
-export const addVehicle = (vehicle) => async (dispatch) => {
+export const addVehicle = (data, vehicle) => async (dispatch) => {
+  console.log(vehicle);
+  if (vehicle.Color === undefined || vehicle.Marca === undefined || vehicle.Modelo === undefined || vehicle.Placa === undefined || vehicle.Serie === undefined) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Por favor, complete todos los campos",
+    });
+    return;
+  }
+  const repetido = data.map((element) => {
+    console.log(element);
+    if (element.Placa === vehicle.Placa) {
+      console.log("placa repetida");
+      return true;
+    }
+  });
+  if (repetido.includes(true)) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "La placa ya existe",
+    });
+    return;
+  }
   await axios
     .post(`${BACK_URL}/vehicle`, vehicle)
     .then((response) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'El Vehiculo se ha agregado correctamente',
+        showConfirmButton: false,
+        timer: 1800
+      })
       dispatch(fetchVehicles());
     })
     .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ocurrio un error al agregar el vehiculo',
+        showConfirmButton: false,
+        timer: 1800
+      })
       console.log(error);
     });
 };
@@ -70,9 +107,21 @@ export const deleteVehicle = (id) => async (dispatch) => {
   await axios
     .delete(`${BACK_URL}/vehicle/${id}`)
     .then((response) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'El vehiculo se ha eliminado correctamente',
+        showConfirmButton: false,
+        timer: 1800
+      })
       dispatch(fetchVehicles());
     })
     .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ocurrio un error al eliminar el vehiculo',
+        showConfirmButton: false,
+        timer: 1800
+      })
       console.log(error);
     });
 };
@@ -81,9 +130,21 @@ export const updateVehicle = (vehicle) => async (dispatch) => {
   await axios
     .put(`${BACK_URL}/vehicle/${vehicle._id}`, vehicle)
     .then((response) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'El vehiculo se ha actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1800
+      })
       dispatch(fetchVehicles());
     })
     .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ocurrio un error al actualizar el vehiculo',
+        showConfirmButton: false,
+        timer: 1800
+      })
       console.log(error);
     });
 };
@@ -91,7 +152,7 @@ export const updateVehicle = (vehicle) => async (dispatch) => {
 
 export const fetchColor = (data) => async (dispatch) => {
   let color = [];
-  data.map((vehicle) => {
+  data.forEach((vehicle) => {
     if (!color.includes(vehicle.Color)) {
       color.push(vehicle.Color);
     }
@@ -102,7 +163,7 @@ export const fetchColor = (data) => async (dispatch) => {
 
 export const fetchMarca = (data) => async (dispatch) => {
   let marca = [];
-  data.map((vehicle) => {
+  data.forEach((vehicle) => {
     if (!marca.includes(vehicle.Marca)) {
       marca.push(vehicle.Marca);
     }
@@ -113,7 +174,7 @@ export const fetchMarca = (data) => async (dispatch) => {
 
 export const fetchModelo = (data) => async (dispatch) => {
   let modelo = [];
-  data.map((vehicle) => {
+  data.forEach((vehicle) => {
     if (!modelo.includes(vehicle.Modelo)) {
       modelo.push(vehicle.Modelo);
     }
@@ -126,7 +187,7 @@ export const fetchModelo = (data) => async (dispatch) => {
 
 export const filterColors = (data, color) => async (dispatch) => {
   let temp = [];
-  data.map((vehicle) => {
+  data.forEach((vehicle) => {
     if (vehicle.Color === color) {
       temp.push(vehicle);
     }
@@ -136,7 +197,7 @@ export const filterColors = (data, color) => async (dispatch) => {
 
 export const filterMarca = (data, marca) => async (dispatch) => {
   let temp = [];
-  data.map((vehicle) => {
+  data.forEach((vehicle) => {
     if (vehicle.Marca === marca) {
       temp.push(vehicle);
     }
@@ -147,7 +208,7 @@ export const filterMarca = (data, marca) => async (dispatch) => {
 
 export const filterModelo = (data, modelo) => async (dispatch) => {
   let temp = [];
-  data.map((vehicle) => {
+  data.forEach((vehicle) => {
     if (vehicle.Modelo === modelo) {
       temp.push(vehicle);
     }

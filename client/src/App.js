@@ -3,7 +3,6 @@ import Bottom from "./components/bottom"
 import Table from "./components/table"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
   return (
     <div>

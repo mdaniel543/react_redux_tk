@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 import {
   fetchVehicles,
@@ -24,8 +25,19 @@ function DarkExample() {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    console.log(id);
-    dispatch(deleteVehicle(id));
+    Swal.fire({
+      title: "¿Estas seguro de elimanar el vehiculo?",
+      text: "Esta accion no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteVehicle(id));
+      }
+    });
   };
 
   const handleModal = (vehicle) => {
@@ -97,7 +109,11 @@ function ModalEdit(props) {
   const [vehicle, setVehicle] = useState({});
 
   const handleChange = (e) => {
-    setVehicle({ ...vehicle, [e.target.name]: (e.target.name === 'Modelo' ? parseInt(e.target.value) :  e.target.value )});
+    setVehicle({
+      ...vehicle,
+      [e.target.name]:
+        e.target.name === "Modelo" ? parseInt(e.target.value) : e.target.value,
+    });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,7 +123,7 @@ function ModalEdit(props) {
 
   useEffect(() => {
     setVehicle(props.vehicle);
-  } , [props.vehicle]);
+  }, [props.vehicle]);
 
   return (
     <Modal
@@ -125,6 +141,7 @@ function ModalEdit(props) {
           <Form.Group className="mb-3">
             <Form.Label>Placa: </Form.Label>
             <Form.Control
+              disabled
               name="Placa"
               type="text"
               value={vehicle.Placa}
@@ -170,7 +187,9 @@ function ModalEdit(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleSubmit} variant="primary">Editar</Button>
+        <Button onClick={handleSubmit} variant="primary">
+          Editar
+        </Button>
         <Button variant="secondary" onClick={props.onHide}>
           Cancelar
         </Button>

@@ -17,6 +17,15 @@ import (
 var client *mongo.Client
 
 func CreateVehicle(response http.ResponseWriter, request *http.Request) {
+	log := models.Log{
+		ID:   [12]byte{},
+		Func: "CreateVehicle",
+		Time: time.Now().String(),
+	}
+	collectiontmp := client.Database("practica1").Collection("log")
+	ctxtmp, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	_, _ = collectiontmp.InsertOne(ctxtmp, log)
+
 	response.Header().Set("Content-Type", "application/json")
 	var vehicle models.Vehicle
 	_ = json.NewDecoder(request.Body).Decode(&vehicle)
@@ -57,6 +66,15 @@ func GetVehicles(response http.ResponseWriter, request *http.Request) {
 }
 
 func UpdateVehicle(response http.ResponseWriter, request *http.Request) {
+	log := models.Log{
+		ID:   [12]byte{},
+		Func: "UpdateVehicle",
+		Time: time.Now().String(),
+	}
+	collectiontmp := client.Database("practica1").Collection("log")
+	ctxtmp, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	_, _ = collectiontmp.InsertOne(ctxtmp, log)
+
 	response.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(request)
 	id, _ := primitive.ObjectIDFromHex(params["id"])
@@ -69,6 +87,15 @@ func UpdateVehicle(response http.ResponseWriter, request *http.Request) {
 }
 
 func DeleteVehicle(response http.ResponseWriter, request *http.Request) {
+	log := models.Log{
+		ID:   [12]byte{},
+		Func: "DeleteVehicle",
+		Time: time.Now().String(),
+	}
+	collectiontmp := client.Database("practica1").Collection("log")
+	ctxtmp, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	_, _ = collectiontmp.InsertOne(ctxtmp, log)
+
 	response.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(request)
 	id, _ := primitive.ObjectIDFromHex(params["id"])
