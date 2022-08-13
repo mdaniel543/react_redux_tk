@@ -170,7 +170,7 @@ function ModalEdit(props) {
             <Form.Label>Modelo: </Form.Label>
             <Form.Control
               name="Modelo"
-              type="text"
+              type="number"
               value={vehicle.Modelo}
               onChange={handleChange}
             />
