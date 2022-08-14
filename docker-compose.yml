@@ -36,6 +36,10 @@ services:
       - backend
     stdin_open: true
     tty: true
+    links:
+      - backend
+    networks:
+      - network_practica1
     
 
 networks:
