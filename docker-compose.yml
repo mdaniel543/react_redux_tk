@@ -34,6 +34,17 @@ services:
       - "3000:3000"
     stdin_open: true
     tty: true
+
+  ngnix:
+    container_name: ngnix
+    restart: always
+    build: ./ngnix
+    image: ngnix
+    ports:
+      - "3050:80"
+    depends_on:
+      - backend
+      - frontend
     
 
 networks:
