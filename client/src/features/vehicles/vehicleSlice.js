@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const BACK_URL = "http://localhost:8080";
 
@@ -44,11 +44,13 @@ export const fetchVehicles = () => async (dispatch) => {
   await axios
     .get(`${BACK_URL}/vehicle`)
     .then((response) => {
-      dispatch(setVehicles(response.data));
-      dispatch(SetCopy(response.data));
-      dispatch(fetchColor(response.data));
-      dispatch(fetchMarca(response.data));
-      dispatch(fetchModelo(response.data));
+      if (response.data !== null) {
+        dispatch(setVehicles(response.data));
+        dispatch(SetCopy(response.data));
+        dispatch(fetchColor(response.data));
+        dispatch(fetchMarca(response.data));
+        dispatch(fetchModelo(response.data));
+      }
       console.log(response.data);
     })
     .catch((error) => {
@@ -58,7 +60,13 @@ export const fetchVehicles = () => async (dispatch) => {
 
 export const addVehicle = (data, vehicle) => async (dispatch) => {
   console.log(vehicle);
-  if (vehicle.Color === undefined || vehicle.Marca === undefined || vehicle.Modelo === undefined || vehicle.Placa === undefined || vehicle.Serie === undefined) {
+  if (
+    vehicle.Color === undefined ||
+    vehicle.Marca === undefined ||
+    vehicle.Modelo === undefined ||
+    vehicle.Placa === undefined ||
+    vehicle.Serie === undefined
+  ) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -85,20 +93,20 @@ export const addVehicle = (data, vehicle) => async (dispatch) => {
     .post(`${BACK_URL}/vehicle`, vehicle)
     .then((response) => {
       Swal.fire({
-        icon: 'success',
-        title: 'El Vehiculo se ha agregado correctamente',
+        icon: "success",
+        title: "El Vehiculo se ha agregado correctamente",
         showConfirmButton: false,
-        timer: 1800
-      })
+        timer: 1800,
+      });
       dispatch(fetchVehicles());
     })
     .catch((error) => {
       Swal.fire({
-        icon: 'error',
-        title: 'Ocurrio un error al agregar el vehiculo',
+        icon: "error",
+        title: "Ocurrio un error al agregar el vehiculo",
         showConfirmButton: false,
-        timer: 1800
-      })
+        timer: 1800,
+      });
       console.log(error);
     });
 };
@@ -108,20 +116,20 @@ export const deleteVehicle = (id) => async (dispatch) => {
     .delete(`${BACK_URL}/vehicle/${id}`)
     .then((response) => {
       Swal.fire({
-        icon: 'success',
-        title: 'El vehiculo se ha eliminado correctamente',
+        icon: "success",
+        title: "El vehiculo se ha eliminado correctamente",
         showConfirmButton: false,
-        timer: 1800
-      })
+        timer: 1800,
+      });
       dispatch(fetchVehicles());
     })
     .catch((error) => {
       Swal.fire({
-        icon: 'error',
-        title: 'Ocurrio un error al eliminar el vehiculo',
+        icon: "error",
+        title: "Ocurrio un error al eliminar el vehiculo",
         showConfirmButton: false,
-        timer: 1800
-      })
+        timer: 1800,
+      });
       console.log(error);
     });
 };
@@ -131,20 +139,20 @@ export const updateVehicle = (vehicle) => async (dispatch) => {
     .put(`${BACK_URL}/vehicle/${vehicle._id}`, vehicle)
     .then((response) => {
       Swal.fire({
-        icon: 'success',
-        title: 'El vehiculo se ha actualizado correctamente',
+        icon: "success",
+        title: "El vehiculo se ha actualizado correctamente",
         showConfirmButton: false,
-        timer: 1800
-      })
+        timer: 1800,
+      });
       dispatch(fetchVehicles());
     })
     .catch((error) => {
       Swal.fire({
-        icon: 'error',
-        title: 'Ocurrio un error al actualizar el vehiculo',
+        icon: "error",
+        title: "Ocurrio un error al actualizar el vehiculo",
         showConfirmButton: false,
-        timer: 1800
-      })
+        timer: 1800,
+      });
       console.log(error);
     });
 };

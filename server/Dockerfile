@@ -1,15 +1,22 @@
-FROM golang:1.18-alpine
+FROM golang:1.18 AS build
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod .
+COPY go.sum .
+
 RUN go mod download
 
-COPY . ./
+COPY . .
 
 RUN go build -o /server
 
+FROM debian:latest
+
+WORKDIR /
+
+COPY --from=build /server /usr/local/bin/server
+
 EXPOSE 8080
 
-CMD [ "/server" ]
+ENTRYPOINT [ "/usr/local/bin/server" ]

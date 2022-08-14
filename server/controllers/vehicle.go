@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -106,6 +107,11 @@ func DeleteVehicle(response http.ResponseWriter, request *http.Request) {
 }
 
 func Connect() {
+	fmt.Println("Conectando a la base de datos...")
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	client, _ = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, _ = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://db:27017"))
+	if err := client.Ping(ctx, nil); err != nil {
+		fmt.Println(err)
+		fmt.Println("No se pudo conectar a la base de datos")
+	}
 }

@@ -1,10 +1,13 @@
-version: "3"
+version: "3.3"
 
 services:
   database:
+    hostname: db
     container_name: database
-    restart: always
     image: mongo
+    restart: always
+    networks:
+      - network_practica1
     ports:
       - "27017:27017"
     volumes:
@@ -19,8 +22,8 @@ services:
       - "8080:8080"
     depends_on:
       - database
-    links:
-      - database
+    networks:
+      - network_practica1
 
   frontend:
     container_name: frontend
@@ -31,5 +34,10 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    links:
-      - backend
+    stdin_open: true
+    tty: true
+    
+
+networks:
+  network_practica1: {}
+    
