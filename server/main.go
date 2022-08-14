@@ -13,11 +13,11 @@ func main() {
 	fmt.Println("Server started")
 	controllers.Connect() // Conecta a la base de datos
 	router := mux.NewRouter()
-	router.HandleFunc("/", controllers.CreateVehicle).Methods("POST")
-	router.HandleFunc("/", controllers.GetVehicles).Methods("GET")
-	router.HandleFunc("/{id}", controllers.GetVehicle).Methods("GET")
-	router.HandleFunc("/{id}", controllers.UpdateVehicle).Methods("PUT")
-	router.HandleFunc("/{id}", controllers.DeleteVehicle).Methods("DELETE")
+	router.HandleFunc("/vehicle", controllers.CreateVehicle).Methods("POST")
+	router.HandleFunc("/vehicle", controllers.GetVehicles).Methods("GET")
+	router.HandleFunc("/vehicle/{id}", controllers.GetVehicle).Methods("GET")
+	router.HandleFunc("/vehicle/{id}", controllers.UpdateVehicle).Methods("PUT")
+	router.HandleFunc("/vehicle/{id}", controllers.DeleteVehicle).Methods("DELETE")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:3000"},

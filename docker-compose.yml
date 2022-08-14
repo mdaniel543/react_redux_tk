@@ -41,7 +41,7 @@ services:
     build: ./ngnix
     image: ngnix
     ports:
-      - "3050:3050"
+      - "3050:80"
     depends_on:
       - backend
       - frontend
