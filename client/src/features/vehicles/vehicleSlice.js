@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const BACK_URL = "http://backend/vehicle";
+const BACK_URL = "http://backend:8080";
 
 const vehicleSlice = createSlice({
   name: "vehicles",
