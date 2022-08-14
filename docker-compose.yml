@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3"
 
 services:
   database:
@@ -33,6 +33,8 @@ services:
     ports:
       - "3000:3000"
     stdin_open: true
+    depends_on:
+      - backend
     networks:
       - network_practica1
 
@@ -49,5 +51,6 @@ services:
     
 
 networks:
-  network_practica1: {}
+  network_practica1: 
+    driver: bridge
     

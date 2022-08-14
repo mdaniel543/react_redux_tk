@@ -42,7 +42,7 @@ export default vehicleSlice.reducer;
 
 export const fetchVehicles = () => async (dispatch) => {
   await axios
-    .get(`/api/get`)
+    .get(`${BACK_URL}/vehicle`)
     .then((response) => {
       if (response.data !== null) {
         dispatch(setVehicles(response.data));
@@ -90,7 +90,7 @@ export const addVehicle = (data, vehicle) => async (dispatch) => {
     return;
   }
   await axios
-    .post(`/api/insert`, vehicle)
+    .post(`${BACK_URL}/vehicle`, vehicle)
     .then((response) => {
       Swal.fire({
         icon: "success",
@@ -113,7 +113,7 @@ export const addVehicle = (data, vehicle) => async (dispatch) => {
 
 export const deleteVehicle = (id) => async (dispatch) => {
   await axios
-    .delete(`/api/delete/${id}`)
+    .delete(`${BACK_URL}/vehicle/${id}`)
     .then((response) => {
       Swal.fire({
         icon: "success",
@@ -136,7 +136,7 @@ export const deleteVehicle = (id) => async (dispatch) => {
 
 export const updateVehicle = (vehicle) => async (dispatch) => {
   await axios
-    .put(`/api/put/${vehicle._id}`, vehicle)
+    .put(`${BACK_URL}/vehicle/${vehicle._id}`, vehicle)
     .then((response) => {
       Swal.fire({
         icon: "success",
