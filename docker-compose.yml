@@ -37,19 +37,7 @@ services:
       - backend
     networks:
       - network_practica1
-
-  ngnix:
-    container_name: ngnix
-    restart: always
-    build: ./ngnix
-    image: ngnix
-    ports:
-      - "3050:80"
-    depends_on:
-      - backend
-      - frontend
-    
-
+  
 networks:
   network_practica1: 
     driver: bridge
