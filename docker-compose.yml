@@ -14,6 +14,7 @@ services:
       - ./data:/data/db
 
   backend:
+    hostname: backend
     container_name: backend
     restart: always
     build: ./server
@@ -36,8 +37,6 @@ services:
       - backend
     stdin_open: true
     tty: true
-    links:
-      - backend
     networks:
       - network_practica1
     
