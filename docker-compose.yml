@@ -33,6 +33,8 @@ services:
     ports:
       - "3000:3000"
     stdin_open: true
+    networks:
+      - network_practica1
 
   ngnix:
     container_name: ngnix
