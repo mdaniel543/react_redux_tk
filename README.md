@@ -54,3 +54,29 @@ Se selecciona el color y se muestra el resultado
 
 ![Seleccion de Color](./assets/8.png)
 
+## Funciones
+
+### Backend
+
+Los datos para el funcionamiento de la aplicación son obtenidos desde un servidor desarrollado con Go.
+
+### Base de datos
+
+Los datos son almacenados utilizando MongoDB, que tambien almacena el registro de cada funcionalidad realizada
+
+## Docker
+
+Para este preoyecto se solicita que se despliegue la aplicacion utilizando contenedores y hacer uso del docker compose para poder levantar los contenedores al mismos tiempo y que se puedan comunicar entre ellos.
+
+![Arquitectura](./assets/9.png)
+
+
+
+
+
+
+
+
+
+
+
