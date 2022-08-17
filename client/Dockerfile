@@ -1,14 +1,13 @@
-### STAGE 1: Build ###
-FROM node:18 AS node
+FROM node:18-alpine AS node
 
 WORKDIR /app
 
-COPY . .
+COPY package.json .
 
 RUN npm install
 
-RUN npm run build
+COPY . .
 
-FROM nginx:1.21.6-alpine
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=node /app/ /usr/share/nginx/html
+EXPOSE 3000
+
+CMD ["npm", "start"]
