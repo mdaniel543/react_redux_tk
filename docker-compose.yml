@@ -1,10 +1,13 @@
-version: "3"
+version: "3.3"
 
 services:
   database:
+    hostname: db
     container_name: database
     image: mongo
     restart: always
+    networks:
+      - network_practica1
     ports:
       - "27017:27017"
     volumes:
@@ -19,9 +22,8 @@ services:
       - "8080:8080"
     depends_on:
       - database
-    links:
-      - database
-
+    networks:
+      - network_practica1
 
   frontend:
     container_name: frontend
@@ -33,7 +35,10 @@ services:
     stdin_open: true
     depends_on:
       - backend
-    links:
-      - backend
-      - database
+    networks:
+      - network_practica1
+  
+networks:
+  network_practica1: 
+    driver: bridge
     
