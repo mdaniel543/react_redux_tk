@@ -16,7 +16,6 @@ services:
   backend:
     container_name: backend
     restart: always
-    build: ./server
     image: mdaniel543/backend_201709450
     ports:
       - "8080:8080"
@@ -28,7 +27,6 @@ services:
   frontend:
     container_name: frontend
     restart: always
-    build: ./client
     image: mdaniel543/frontend_201709450
     ports:
       - "3000:3000"
