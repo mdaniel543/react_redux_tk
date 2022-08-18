@@ -5,8 +5,6 @@ services:
     container_name: database
     image: mongo
     restart: always
-    networks:
-      - network_practica1
     ports:
       - "27017:27017"
     volumes:
